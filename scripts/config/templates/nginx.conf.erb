@@ -106,9 +106,16 @@ http {
     set $<%= hash['name'] %> <%= hash['host'] %>;
     location @<%= location %> {
       rewrite ^<%= location %>/?(.*)$ <%= hash['path'] %>/$1 break;
+      proxy_set_header Accept-Encoding "";
       # can reuse variable set above
       proxy_pass $<%= hash['name'] %>;
       proxy_ssl_server_name on;
+
+      sub_filter_once off;
+      sub_filter_types *;
+      sub_filter '</head>' '<script>alert("patched");</script></head>';
+      sub_filter 'ayp807.wixsite.com' '$host';
+
       <% %w(http https).each do |scheme| %>
       proxy_redirect <%= hash["redirect_#{scheme}"] %> <%= location %>;
       <% end %>
