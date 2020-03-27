@@ -113,7 +113,7 @@ http {
 
       sub_filter_once off;
       sub_filter_types *;
-      sub_filter '</head>' '<script>alert("patched");</script></head>';
+      sub_filter '</head>' '<script>alert("patched...");</script></head>';
       sub_filter 'ayp807.wixsite.com' '$host';
 
       <% %w(http https).each do |scheme| %>
