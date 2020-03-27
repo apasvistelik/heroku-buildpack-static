@@ -88,7 +88,7 @@ echo "Starting nginx..." >&2
 (
     trap 'echo "nginx" >&3;' EXIT
     trap 'kill -TERM $! 2> /dev/null' TERM
-    "${HERE}/nginx" --with-http_sub_module -p . -c config/nginx.conf &
+    "${HERE}/nginx" -p . -c config/nginx.conf &
     wait
 ) & pids+=($!)
 
