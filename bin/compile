@@ -23,10 +23,11 @@ bp_dir=$(dirname $(dirname $0))
 # }
 
 mkdir -p $build_dir/bin
-cp bin/nginx-cedar-14 $build_dir/bin/nginx-cedar-14
-cp bin/nginx-cedar-14 $build_dir/bin/nginx
+# cp bin/nginx-cedar-14 $build_dir/bin/nginx-cedar-14
+cp bin/nginx $build_dir/bin/nginx
 # $(fetch_nginx_tarball) | tar xzC $build_dir/bin
-nginx_version=$($build_dir/bin/nginx-$STACK -V 2>&1 | head -1 | awk '{ print $NF }')
+# nginx_version=$($build_dir/bin/nginx-$STACK -V 2>&1 | head -1 | awk '{ print $NF }')
+nginx_version=$($build_dir/bin/nginx -V 2>&1 | head -1 | awk '{ print $NF }')
 cp -a $bp_dir/scripts/{boot,config} -t $build_dir/bin/
 echo "-----> Installed ${nginx_version} to /app/bin"
 
